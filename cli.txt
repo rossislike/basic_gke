@@ -1,0 +1,22 @@
+% gcloud container clusters get-credentials primary --zone us-central1-a --project my-second-project-416401
+
+% kubectl apply -f grafana
+namespace/my-grafana created
+namespace/my-grafana unchanged
+persistentvolumeclaim/grafana-pvc created
+deployment.apps/grafana created
+service/grafana created
+
+% kubectl get services --all-namespaces
+NAMESPACE     NAME             TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)            AGE
+default       kubernetes       ClusterIP      10.52.0.1      <none>          443/TCP            16m
+gmp-system    alertmanager     ClusterIP      None           <none>          9093/TCP           15m
+gmp-system    gmp-operator     ClusterIP      10.52.2.174    <none>          8443/TCP,443/TCP   15m
+kube-system   kube-dns         ClusterIP      10.52.0.10     <none>          53/UDP,53/TCP      16m
+kube-system   metrics-server   ClusterIP      10.52.13.165   <none>          443/TCP            15m
+my-grafana    grafana          LoadBalancer   10.52.8.211    35.188.97.200   3000:32676/TCP     2m11s
+
+browser: 
+- NAMESPACE: my-grafana, http://EXTERNAL-IP:PORT
+- http://35.188.97.200:3000
+- admin/admin

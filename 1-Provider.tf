@@ -1,9 +1,11 @@
 # https://www.terraform.io/language/settings/backends/gcs
 terraform {
   backend "gcs" {
-    bucket = "black-mesa-west-gke-bucket"
+    bucket = "rumo-state-bucket"
     prefix = "terraform/state"
+    credentials = "./my-second-project-416401-f024ec5b7771.json"
   }
+  
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -14,6 +16,7 @@ terraform {
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs
 provider "google" {
-  project = "black-mesa-west-gke-research"
+  project = "my-second-project-416401"
   region  = "us-central1"
+  credentials = "${path.module}/my-second-project-416401-f024ec5b7771.json"
 }
